@@ -1,0 +1,27 @@
+services:
+  db:
+    image: mysql
+    container_name: mealtoday-db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=coffee987
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+    networks:
+      - mealtoday-net
+  app:
+    build: docker/php
+    container_name: mealtoday-app
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/php/vhosts:/etc/apache2/sites-enabled
+      - ./src/:/var/www/html/
+    restart: always
+    networks:
+      - mealtoday-net
+
+networks:
+  mealtoday-net:
