@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 abstract class BaseRepository
 {
-	private readonly string $connectionUrl = "mysql:host=$servername;dbname=$dbName";
-	private readonly string $username = "root";
-	private readonly string $password = "coffee987";
+	private string $servername = 'mealtoday-db';
+	private string $dbName = 'mealie_dev';
+	private string $connectionUrl;
+	private string $username = "root";
+	private string $password = "coffee987";
 
 	private string $tableName = "";
-	private PDO $pdo;
+	private ?PDO $pdo = null;
 
 	public function __construct(string $tableName)
 	{
 		$this->tableName = $tableName;
+		$this->connectionUrl = "mysql:host=".$this->servername.";dbname=".$this->dbName;
 	}
 
-	protected function getConnection(): string
+	protected function getConnection(): ?PDO
 	{
 		if (null === $this->pdo) {
 			try {
@@ -25,11 +28,14 @@ abstract class BaseRepository
 
 				return $this->pdo;
 			} catch (PDOException $e) {
-				header(500);
+				echo $e->getMessage();
+				http_response_code(500);
 				error_log("Unable to connect to database");
-				die();
+				return null;
 			}
 		}
+
+		return $this->pdo;
 	}
 
 	protected function getTableName(): string

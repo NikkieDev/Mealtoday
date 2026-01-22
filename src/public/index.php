@@ -10,7 +10,7 @@
 	<body data-bs-theme="dark">
 		<div class="container gy-2 py-4 col-12">
 			<div class="row justify-content-center">
-				<h1 class="col-6">Wat eten we vandaag?</h1>
+				<h1 class="text-center col-6">Wat eten we vandaag?</h1>
 			</div>
 			<div class="row py-4">
 				<div class="row py-2 justify-content-center">

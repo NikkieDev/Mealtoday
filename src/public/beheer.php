@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ "/../lib/Dto/Meal.php";
-require_once __DIR__ "/../lib/Repository/MealRepository.php";
+require_once __DIR__ . '/../lib/Dto/Meal.php';
+require_once __DIR__ . '/../lib/Repository/MealRepository.php';
 
 $meals = (new MealRepository())->find(100) ?? [];
 
@@ -32,8 +32,9 @@ $meals = (new MealRepository())->find(100) ?? [];
 				<div class="card-body">
 					<h3 class="card-title">Maaltijd toevoegen</h3>
 					<div class="input-group">
-						<input type="text" id="mealName" class="form-control" placeholder="Maaltijd" />
-						<button type="button" id="submit" class="btn btn-lg btn-primary">+</button>
+						<input type="hidden" name="_referrer" value="/beheer.php" />
+						<input type="text" id="mealName" name="mealName" class="form-control" placeholder="Maaltijd" />
+						<button type="submit" id="submit" class="btn btn-lg btn-primary">+</button>
 					</div>
 				</div>
 			</form>
@@ -42,7 +43,7 @@ $meals = (new MealRepository())->find(100) ?? [];
 					<h3 class="card-title">Maaltijden</h3>
 					<form class="col-6" method="GET">
 						<div class="input-group">
-							<input type="text" id="mealName" class="form-control" placeholder="Zoeken op recept" />
+							<input type="text" id="mealSearch" class="form-control" placeholder="Zoeken op recept" />
 							<button type="submit" class="btn btn-primary">&#x1F50E;</button>
 						</div>
 					</form>
@@ -53,7 +54,7 @@ $meals = (new MealRepository())->find(100) ?? [];
 						 * @var Meal $meal
 						 **/
 						 foreach ($meals as $meal) : ?>
-							<div data-beheer-target="meal" data-meal-id="<?= $meal->getId(); ?>" class="row input-group">
+							<div data-beheer-target="meal" data-meal-id="<?= $meal->getId(); ?>" class="m-2 row input-group">
 								<p class="col-11 d-flex align-items-center m-0 input-group-text"><?= $meal->getName(); ?></p>
 								<button
 									class="col-1 btn btn-danger btn-lg border-0"
